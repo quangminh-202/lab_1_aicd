@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.11)
 
-project(lab_1_aicd CXX)
+project(vector CXX)
 
 set(CMAKE_CXX_STANDARD 23)
 
@@ -17,19 +17,13 @@ if(MSVC)
     endif()
 endif()
 
-set(SOURCES 
-    src/main.cc
-    src/vectors.cc
+# Объявляем библиотеку
+add_library(vector SHARED
+    "include/vector/vector.h"
+    "src/vector.cc"
 )
+target_include_directories(vector PUBLIC "include")
 
-set(HEADERS 
-    include/vectors.h
-)
-
-include_directories(include)
-add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS})
-#add_library(lab_1_aicd SHARED "include/vectors.h" "src/vectors.cc" "src/main.cc")
-#target_include_directories(lab_1_aicd PUBLIC "include")
-#add_executable(lab_1_aicd "src/vectors.cc" "src/vectors.cc")
-
-
+# Объявляем тесты
+add_executable(vectorcc "src/vector.cc")
+target_link_libraries(vectorcc vector)
